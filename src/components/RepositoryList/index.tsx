@@ -8,6 +8,7 @@ import { bindActionCreators, Dispatch } from 'redux';
 import { ApplicationState } from '../../store';
 import { Repository } from '../../store/ducks/repositories/types';
 import * as RepositoryActions from '../../store/ducks/repositories/actions';
+import RepositoryItem from '../RepositoryItem';
 
 interface StateProps {
   repositories: Repository[],
@@ -22,9 +23,8 @@ type Props = StateProps & DispatchProps;
 
 class RepositoryList extends Component<Props> {
   componentDidMount() {
-    const { loadRequest, repositories } = this.props;
+    const { loadRequest } = this.props;
     loadRequest();
-    console.log(repositories);
   }
 
   render() {
@@ -32,7 +32,7 @@ class RepositoryList extends Component<Props> {
     return (
       <ul>
         {
-          repositories.map((repo) => <li>{repo.name}</li>)
+          repositories.map((repo) => <RepositoryItem repository={repo} key={repo.id} />)
         }
       </ul>
     );
